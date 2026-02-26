@@ -92,7 +92,7 @@ export function Navigation() {
                 ))}
                 <Button 
                   className="bg-blue-500 hover:bg-blue-600 text-white mt-4"
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => setWaitlistOpen(true)}
                 >
                   Join the Waitlist
                 </Button>
