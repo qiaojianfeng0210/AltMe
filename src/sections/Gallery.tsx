@@ -6,36 +6,36 @@ import { ZoomIn } from 'lucide-react';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 
 const galleryItems = [
-  {
-    src: '/images/hero-figure.jpg',
-    title: 'The Visionary',
-    description: 'Genius reimagined'
-  },
+  // {
+  //   src: '/images/hero-figure.jpg',
+  //   title: 'The Visionary',
+  //   description: 'Genius reimagined'
+  // },
   {
     src: '/images/gallery-1.jpg',
-    title: 'The Guardian',
-    description: 'Ancient protector'
+    title: 'Sentinel of Sagittarius A*',
+    description: 'Beneath his playful expression lies immense power, a guardian whose presence alone stabilizes the balance between chaos and creation.'
   },
   {
     src: '/images/gallery-2.jpg',
-    title: 'The Creator',
-    description: 'Artistic spirit'
+    title: 'Aurora of Sagittarius A*',
+    description: 'Radiant and fearless, she was born in the luminous edge of Sagittarius A*, where gravity bends light and time fractures into possibility.'
   },
   {
     src: '/images/gallery-3.jpg',
-    title: 'The Explorer',
-    description: 'Space pioneer'
+    title: 'Stardust Tyrant',
+    description: 'Born in the Eagle Nebula,he commands shadow fleets across dying stars.The skull on his armor marks hard-won victories.'
   },
-  {
-    src: '/images/gallery-4.jpg',
-    title: 'The Sage',
-    description: 'Mystical wisdom'
-  },
-  {
-    src: '/images/gallery-5.jpg',
-    title: 'The Innovator',
-    description: 'Tech visionary'
-  }
+  // {
+  //   src: '/images/gallery-4.jpg',
+  //   title: 'The Sage',
+  //   description: 'Mystical wisdom'
+  // },
+  // {
+  //   src: '/images/gallery-5.jpg',
+  //   title: 'The Innovator',
+  //   description: 'Tech visionary'
+  // }
 ];
 
 export function Gallery() {
