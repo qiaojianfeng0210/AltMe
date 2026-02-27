@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { createPortal } from "react-dom";
 
 export function WaitlistModal({
   open,
@@ -7,15 +8,33 @@ export function WaitlistModal({
   open: boolean;
   onClose: () => void;
 }) {
+  const [mounted, setMounted] = useState(false);
+
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
+    "idle"
+  );
   const [errorMsg, setErrorMsg] = useState("");
 
   const isValidEmail = useMemo(() => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
   }, [email]);
 
-  if (!open) return null;
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Optional but recommended: prevent background scroll when modal is open
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [open]);
+
+  if (!open || !mounted) return null;
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -30,31 +49,21 @@ export function WaitlistModal({
     setStatus("loading");
 
     try {
-      // await new Promise((r) => setTimeout(r, 700));
-      // setStatus("success");
-      const res = await fetch("/api/waitlist", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error(data?.message || "Subscribe failed.");
-      }
+      // TODO: replace with your real API call
+      // await fetch("/api/waitlist", { method:"POST", headers:{...}, body: JSON.stringify({email}) })
+      await new Promise((r) => setTimeout(r, 700));
 
       setStatus("success");
-    } catch (err: any) {
+    } catch {
       setStatus("error");
-      setErrorMsg(err?.message || "Something went wrong. Please try again.");
-      }
+      setErrorMsg("Something went wrong. Please try again.");
+    }
   }
 
-  return (
+  const modal = (
     <div
-      className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 px-4"
+      className="fixed inset-0 z-[9999] bg-black/70 backdrop-blur-sm flex items-center justify-center px-4"
       onMouseDown={(e) => {
-        // optional: click outside to close
         if (e.target === e.currentTarget) onClose();
       }}
     >
@@ -67,7 +76,9 @@ export function WaitlistModal({
           ✕
         </button>
 
-        <h2 className="text-2xl font-semibold text-white mb-2">Join Early Access</h2>
+        <h2 className="text-2xl font-semibold text-white mb-2">
+          Join Early Access
+        </h2>
         <p className="text-white/60 mb-6">
           Be first to access limited AltMe series when we launch on Kickstarter.
         </p>
@@ -114,4 +125,6 @@ export function WaitlistModal({
       </div>
     </div>
   );
+
+  return createPortal(modal, document.body);
 }
