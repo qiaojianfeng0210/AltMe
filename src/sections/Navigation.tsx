@@ -114,7 +114,10 @@ function scrollToId(hash: string) {
                 ))}
                 <Button 
                   className="bg-blue-500 hover:bg-blue-600 text-white mt-4"
-                  onClick={() => setWaitlistOpen(true)}
+                  onClick={() => {
+                    setIsOpen(false);
+                    requestAnimationFrame(() => setWaitlistOpen(true));
+                }}
                 >
                   Join the Waitlist
                 </Button>
