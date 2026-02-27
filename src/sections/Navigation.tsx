@@ -18,6 +18,18 @@ export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [waitlistOpen, setWaitlistOpen] = useState(false);
 
+const HEADER_OFFSET = 80; // h-20 = 80px
+
+function scrollToId(hash: string) {
+  const id = hash.replace("#", "");
+  const el = document.getElementById(id);
+  if (!el) return;
+
+  const y = el.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
+
+  window.scrollTo({ top: y, behavior: "smooth" });
+}
+
   return (
     <motion.header
       initial={{ y: -20, opacity: 0 }}
@@ -46,6 +58,10 @@ export function Navigation() {
               <a
                 key={link.name}
                 href={link.href}
+                onClick={(e) => {
+                e.preventDefault();
+                scrollToId(link.href);
+                  }}
                 className="text-sm text-white/70 hover:text-white transition-colors duration-300"
               >
                 {link.name}
@@ -84,7 +100,13 @@ export function Navigation() {
                   <a
                     key={link.name}
                     href={link.href}
-                    onClick={() => setIsOpen(false)}
+                    onClick={(e) => {
+                    e.preventDefault();
+                    setIsOpen(false);
+
+                    // let the sheet start closing, then scroll
+                    requestAnimationFrame(() => scrollToId(link.href));
+                    }}
                     className="text-lg text-white/70 hover:text-white transition-colors duration-300"
                   >
                     {link.name}

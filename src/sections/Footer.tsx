@@ -23,10 +23,29 @@ const socialLinks = [
 ];
 
 export function Footer() {
+  const HEADER_OFFSET = 80; // your header height (h-20 = 80px)
+
+  function scrollToId(hash: string) {
+    const id = hash.replace("#", "");
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    const y =
+      el.getBoundingClientRect().top +
+      window.scrollY -
+      HEADER_OFFSET;
+
+    window.scrollTo({
+      top: y,
+      behavior: "smooth",
+    });
+  }
+
   return (
     <footer className="relative bg-[#0a0a0a] border-t border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+          
           {/* Brand */}
           <FadeInView className="lg:col-span-1">
             <div>
@@ -39,6 +58,7 @@ export function Footer() {
                 Turning identity into art. Premium 3D-printed collectible figures 
                 crafted with cinematic precision.
               </p>
+
               {/* Social Links */}
               <div className="flex gap-3">
                 {socialLinks.map((social) => (
@@ -65,6 +85,10 @@ export function Footer() {
                   <li key={link.name}>
                     <a 
                       href={link.href}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        scrollToId(link.href);
+                      }}
                       className="text-white/50 hover:text-white text-sm transition-colors duration-200"
                     >
                       {link.name}
@@ -94,10 +118,11 @@ export function Footer() {
             </div>
           </FadeInView>
 
-          {/* Newsletter */}
+          {/* Studio Info */}
           <FadeInView delay={0.3}>
             <div>
               <h4 className="text-white font-semibold mb-4">AltMe Studio</h4>
+
               <p className="text-white/50 text-sm mb-4">
                 Creators of Parallel Identity Collectibles
               </p>
@@ -113,19 +138,6 @@ export function Footer() {
               <p className="text-white/50 text-sm mb-4">
                 Launching on Kickstarter 2026
               </p>
-              {/* <form className="flex gap-2">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="flex-1 bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-blue-500/50 transition-colors"
-                />
-                <button
-                  type="submit"
-                  className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-300"
-                >
-                  Join
-                </button>
-              </form> */}
             </div>
           </FadeInView>
         </div>
