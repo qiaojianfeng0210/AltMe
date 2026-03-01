@@ -104,7 +104,7 @@ export function WaitlistModal({
               onClick={onClose}
               className="mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-md transition"
             >
-              Done
+              Check your inbox to confirm!
             </button>
           </div>
         ) : (
