@@ -48,17 +48,28 @@ export function WaitlistModal({
 
     setStatus("loading");
 
-    try {
-      // TODO: replace with your real API call
-      // await fetch("/api/waitlist", { method:"POST", headers:{...}, body: JSON.stringify({email}) })
-      await new Promise((r) => setTimeout(r, 700));
+        try {
+      const res = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        setStatus("error");
+        setErrorMsg(data?.message || "Signup failed. Please try again.");
+        return;
+      }
 
       setStatus("success");
-    } catch {
+    } catch (err: any) {
       setStatus("error");
-      setErrorMsg("Something went wrong. Please try again.");
+      setErrorMsg("Network error. Please try again.");
     }
   }
+
 
   const modal = (
     <div
