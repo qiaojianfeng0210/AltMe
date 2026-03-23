@@ -75,7 +75,7 @@ function scrollToId(hash: string) {
               className="bg-blue-500 hover:bg-blue-600 text-white px-6 transition-all duration-300 hover:scale-[1.02]"
               onClick={() => setWaitlistOpen(true)}
             >
-              Join the Waitlist
+              Enter the Early Access
             </Button>
           </div>
 

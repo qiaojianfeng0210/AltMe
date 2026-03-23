@@ -53,7 +53,7 @@ export function CTA() {
               className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-6 text-base transition-all duration-300 hover:scale-[1.02] hover:glow-blue group"
               onClick={() => setWaitlistOpen(true)}
             >
-              Join the Waitlist
+              Enter the Early Access
               <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Button>
             <Button 
